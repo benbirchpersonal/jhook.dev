@@ -3,6 +3,10 @@
 	color: ghostwhite;
 }
 
-.body {
-	background-color: black;
+body 
+{
+    width: 100%;
+    height: auto;
+    background: black;
+    overflow: hidden;
 }
