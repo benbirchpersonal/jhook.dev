@@ -31,9 +31,8 @@ body
 .hamRotate.active {
   transform: rotate(45deg);
 }
-.hamRotate180.active {
-  transform: rotate(180deg);
-}
+
+
 .line {
   fill:none;
   transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
