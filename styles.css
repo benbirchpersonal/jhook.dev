@@ -1,3 +1,4 @@
+/* Base styles */
 body {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@ body {
     overflow: hidden;
 }
 
+/* Main title styles */
 .mainTitle {
     position: absolute;
     top: 50%;
@@ -21,7 +23,35 @@ canvas {
     top: 0;
     left: 0;
 }
-/* Existing styles */
+
+/* Scroll Indicator Styles */
+#scrollIndicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 5px;
+    background-color: white;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+/* Down Arrow Indicator Styles */
+#downArrow {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    border: solid white;
+    border-width: 0 2px 2px 2px;
+    border-radius: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's above other content */
+}
 
 /* Projects Section Styles */
 #projects {
@@ -49,7 +79,6 @@ canvas {
     max-width: 600px;
     padding: 20px;
     transition: transform 0.3s ease;
-    position: relative;
 }
 
 .project-item:hover {
@@ -89,25 +118,24 @@ canvas {
     background-color: #555;
 }
 
-/* Project Details Styles */
-.project-details {
-    position: relative;
-    margin-top: 100vh; /* Start off-screen */
+/* Placeholder Coding Projects List Styles */
+#coding-projects {
     padding: 50px;
+    background-color: #222;
     color: white;
-    background-color: #333;
-    scroll-snap-align: start;
+    text-align: center;
 }
 
-/* Scroll Indicator Styles */
-#scrollIndicator {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 5px;
-    background-color: white;
+.coding-projects-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.coding-projects-list li {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #333;
     border-radius: 5px;
-    transition: width 0.3s ease;
 }
