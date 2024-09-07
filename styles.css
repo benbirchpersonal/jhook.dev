@@ -21,3 +21,84 @@ canvas {
     top: 0;
     left: 0;
 }
+
+/* Existing styles */
+
+/* Projects Section Styles */
+#projects {
+    margin: 100vh 0 0 0; /* Pushes the section down to make space for the scroll indicator */
+    padding: 50px;
+    color: white;
+    text-align: center;
+    background-color: #222;
+}
+
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.project-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.project-item:hover {
+    transform: scale(1.05);
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.project-title {
+    margin: 15px 0 10px;
+    font-size: 1.5rem;
+    color: #eee;
+}
+
+.project-description {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.more-info {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.more-info:hover {
+    background-color: #555;
+}
+
+/* Scroll Indicator Styles */
+#scrollIndicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 5px;
+    background-color: white;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
