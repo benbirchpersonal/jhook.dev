@@ -115,3 +115,33 @@ window.addEventListener('resize', function() {
 // Initialize particles and start animation
 initParticles();
 animate();
+
+const scrollIndicator = document.getElementById('scrollIndicator');
+
+function updateScrollIndicator() {
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPosition = window.scrollY;
+    const indicatorWidth = (scrollPosition / scrollableHeight) * 100;
+    scrollIndicator.style.width = `${indicatorWidth}%`;
+}
+
+// Update scroll indicator on scroll
+window.addEventListener('scroll', updateScrollIndicator);
+
+// Initialize scroll indicator on page load
+updateScrollIndicator();
+
+// Handle "More Info" button clicks
+document.querySelectorAll('.more-info').forEach(button => {
+    button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+
+        if (targetSection) {
+            window.scrollTo({
+                top: targetSection.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
