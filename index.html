@@ -1,49 +1,62 @@
- <div class="mainTitle">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhook.dev</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <div class="mainTitle">
         <h1>Jhook.dev</h1>
         <img src="logoTransparent.png" alt="jhook logo">
     </div>
     <canvas id="particleCanvas"></canvas>
 
+    <!-- Scroll Indicator -->
+    <div id="scrollIndicator"></div>
+
+    <!-- Down Arrow Indicator -->
+    <div id="downArrow" aria-label="Scroll down"></div>
+
     <!-- Projects Section -->
     <section id="projects">
         <h2>Projects</h2>
         <div class="projects-container">
+            <!-- Placeholder project items -->
             <div class="project-item">
                 <img src="placeholder-image.jpg" alt="Project 1" class="project-image">
                 <h3 class="project-title">Project 1</h3>
                 <p class="project-description">This is a brief description of Project 1.</p>
-                <button class="more-info" data-target="project1">More Info &raquo;</button>
+                <button class="more-info">More Info &raquo;</button>
             </div>
             <div class="project-item">
                 <img src="placeholder-image.jpg" alt="Project 2" class="project-image">
                 <h3 class="project-title">Project 2</h3>
                 <p class="project-description">This is a brief description of Project 2.</p>
-                <button class="more-info" data-target="project2">More Info &raquo;</button>
+                <button class="more-info">More Info &raquo;</button>
             </div>
             <div class="project-item">
                 <img src="placeholder-image.jpg" alt="Project 3" class="project-image">
                 <h3 class="project-title">Project 3</h3>
                 <p class="project-description">This is a brief description of Project 3.</p>
-                <button class="more-info" data-target="project3">More Info &raquo;</button>
+                <button class="more-info">More Info &raquo;</button>
             </div>
             <!-- Add more projects as needed -->
         </div>
     </section>
 
-    <!-- Project Details Sections (Start Off-Screen) -->
-    <section id="project1" class="project-details">
-        <h2>Project 1 Details</h2>
-        <p>Detailed information about Project 1.</p>
+    <!-- Placeholder Coding Projects List -->
+    <section id="coding-projects">
+        <h2>Coding Projects</h2>
+        <ul class="coding-projects-list">
+            <li>Project A: Description of Project A.</li>
+            <li>Project B: Description of Project B.</li>
+            <li>Project C: Description of Project C.</li>
+            <li>Project D: Description of Project D.</li>
+            <li>Project E: Description of Project E.</li>
+        </ul>
     </section>
-    <section id="project2" class="project-details">
-        <h2>Project 2 Details</h2>
-        <p>Detailed information about Project 2.</p>
-    </section>
-    <section id="project3" class="project-details">
-        <h2>Project 3 Details</h2>
-        <p>Detailed information about Project 3.</p>
-    </section>
-
-    <!-- Scroll Indicator -->
-    <div id="scrollIndicator"></div>
 </body>
+</html>
