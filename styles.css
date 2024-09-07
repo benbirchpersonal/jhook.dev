@@ -21,7 +21,6 @@ canvas {
     top: 0;
     left: 0;
 }
-
 /* Existing styles */
 
 /* Projects Section Styles */
@@ -88,6 +87,16 @@ canvas {
 
 .more-info:hover {
     background-color: #555;
+}
+
+/* Project Details Styles */
+.project-details {
+    position: relative;
+    margin-top: 100vh; /* Start off-screen */
+    padding: 50px;
+    color: white;
+    background-color: #333;
+    scroll-snap-align: start;
 }
 
 /* Scroll Indicator Styles */
