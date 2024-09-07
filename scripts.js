@@ -2,7 +2,7 @@
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
 const particles = [];
-const numParticles = 100;
+const numParticles = 50;
 let mouse = { x: null, y: null };
 const maxDistance = 100;
 
@@ -12,12 +12,13 @@ canvas.height = window.innerHeight;
 
 // Particle class
 class Particle {
-    constructor(x, y, speedX, speedY, radius) {
+    constructor(x, y, speedX, speedY, radius, brightness) {
         this.x = x;
         this.y = y;
         this.speedX = speedX;
         this.speedY = speedY;
         this.radius = radius;
+        this.brightness = brightness;
     }
 
     update() {
@@ -32,7 +33,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
         ctx.fill();
         ctx.closePath();
     }
@@ -42,12 +43,13 @@ class Particle {
 function initParticles() {
     particles.length = 0; // Clear particles
     for (let i = 0; i < numParticles; i++) {
-        let radius = 2;
+        let radius = Math.random() * 3 + 1; // Random size between 1 and 4
+        let brightness = Math.random() * 0.5 + 0.5; // Random brightness between 0.5 and 1
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let speedX = (Math.random() - 0.5) * 2; // Random velocity
         let speedY = (Math.random() - 0.5) * 2;
-        particles.push(new Particle(x, y, speedX, speedY, radius));
+        particles.push(new Particle(x, y, speedX, speedY, radius / 2, brightness / 2));
     }
 }
 
@@ -116,37 +118,17 @@ window.addEventListener('resize', function() {
 initParticles();
 animate();
 
-// Scroll Indicator functionality
-const scrollIndicator = document.getElementById('scrollIndicator');
-const scrollButton = document.getElementById('scrollButton');
-let scrollButtonVisible = true;
-
-// Update scroll indicator and show button if not scrolled
-function updateScrollIndicator() {
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPosition = window.scrollY;
-    const indicatorWidth = (scrollPosition / scrollableHeight) * 100;
-    scrollIndicator.style.width = `${indicatorWidth}%`;
-
-    // Toggle scroll button visibility based on scroll position
-    if (scrollPosition >= 0 && scrollPosition < scrollableHeight - 100) {
-        scrollButton.style.opacity = '1';
-        scrollButtonVisible = true;
-    } else {
-        scrollButton.style.opacity = '0';
-        scrollButtonVisible = false;
-    }
-}
-
-// Allow scrolling with the scroll wheel
-window.addEventListener('scroll', updateScrollIndicator);
-updateScrollIndicator();
-
-// Smooth scroll to the projects section or back to the top
-scrollButton.addEventListener('click', () => {
-    const scrollTarget = scrollButtonVisible ? window.innerHeight : 0;
+// Smooth scroll to projects section or back to the top
+document.getElementById('scrollButtonDown').addEventListener('click', () => {
     window.scrollTo({
-        top: scrollTarget,
+        top: window.innerHeight,
+        behavior: 'smooth'
+    });
+});
+
+document.getElementById('scrollButtonUp').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
         behavior: 'smooth'
     });
 });

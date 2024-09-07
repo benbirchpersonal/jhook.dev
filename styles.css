@@ -17,6 +17,21 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
+.mainTitle svg {
+    transform: translate(2%, 0%);
+    width: 100%; /* Adjust the size of the logo if needed */
+    height: auto;
+}
+
+
+
+.mainTitle h1 {
+    transform: translate(0, -600%);
+    margin: 0 0 0;
+    font-size: 2rem;
+}
+
+/* Other styles remain unchanged */
 canvas {
     display: block;
     position: fixed;
@@ -24,23 +39,25 @@ canvas {
     left: 0;
 }
 
-/* Scroll Indicator Styles */
-#scrollIndicator {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 5px;
-    background-color: white;
-    border-radius: 5px;
-    transition: width 0.3s ease;
-}
-
-/* Scroll Button Styles */
-#scrollButton {
+/* Scroll Down Button Styles */
+#scrollButtonDown {
     position: fixed;
     bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: fadeInOut 3s infinite;
+    z-index: 1000;
+}
+
+/* Scroll Up Button Styles */
+#scrollButtonUp {
+    position: fixed;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 2rem;
@@ -114,32 +131,10 @@ canvas {
 }
 
 .more-info:hover {
-    background-color: #555;
+    background-color: #000000;
 }
 
-/* Placeholder Coding Projects List Styles */
-#coding-projects {
-    padding: 50px;
-    background-color: #222;
-    color: white;
-    text-align: center;
-}
-
-.coding-projects-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.coding-projects-list li {
-    font-size: 1.2rem;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #333;
-    border-radius: 5px;
-}
-
-/* Fade-in and fade-out animation for scroll button */
+/* Fade-in and fade-out animation for scroll buttons */
 @keyframes fadeInOut {
     0% { opacity: 0; }
     50% { opacity: 1; }
