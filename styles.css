@@ -21,13 +21,26 @@
 
 /* Body background gradient animation */
 /* Back to solid black background */
+/* Back to black background */
 body {
     width: 100%;
     height: auto;
     background: black;
     overflow: hidden;
-    position: relative;
+    margin: 0;
 }
+
+/* Ensure canvas covers the entire screen */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    z-index: -1;  /* Behind all other elements */
+}
+
 
 /* Particle effect */
 @keyframes particle-animation {
