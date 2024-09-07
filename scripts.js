@@ -116,7 +116,9 @@ window.addEventListener('resize', function() {
 initParticles();
 animate();
 
+// Scroll Indicator functionality
 const scrollIndicator = document.getElementById('scrollIndicator');
+const downArrow = document.getElementById('downArrow');
 
 function updateScrollIndicator() {
     const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -125,23 +127,16 @@ function updateScrollIndicator() {
     scrollIndicator.style.width = `${indicatorWidth}%`;
 }
 
-// Update scroll indicator on scroll
 window.addEventListener('scroll', updateScrollIndicator);
-
-// Initialize scroll indicator on page load
 updateScrollIndicator();
 
-// Handle "More Info" button clicks
-document.querySelectorAll('.more-info').forEach(button => {
-    button.addEventListener('click', () => {
-        const targetId = button.getAttribute('data-target');
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-            window.scrollTo({
-                top: targetSection.offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    });
+// Smooth scroll to projects section when down arrow is clicked
+downArrow.addEventListener('click', () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+        window.scrollTo({
+            top: projectsSection.offsetTop,
+            behavior: 'smooth'
+        });
+    }
 });
