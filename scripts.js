@@ -121,6 +121,7 @@ const scrollIndicator = document.getElementById('scrollIndicator');
 const scrollButton = document.getElementById('scrollButton');
 let scrollButtonVisible = true;
 
+// Update scroll indicator and show button if not scrolled
 function updateScrollIndicator() {
     const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPosition = window.scrollY;
@@ -128,21 +129,22 @@ function updateScrollIndicator() {
     scrollIndicator.style.width = `${indicatorWidth}%`;
 
     // Toggle scroll button visibility based on scroll position
-    if (scrollPosition > 0 && scrollPosition < scrollableHeight - 100) {
-        scrollButtonVisible = true;
+    if (scrollPosition >= 0 && scrollPosition < scrollableHeight - 100) {
         scrollButton.style.opacity = '1';
+        scrollButtonVisible = true;
     } else {
-        scrollButtonVisible = false;
         scrollButton.style.opacity = '0';
+        scrollButtonVisible = false;
     }
 }
 
+// Allow scrolling with the scroll wheel
 window.addEventListener('scroll', updateScrollIndicator);
 updateScrollIndicator();
 
-// Smooth scroll to projects section or top when scroll button is clicked
+// Smooth scroll to the projects section or back to the top
 scrollButton.addEventListener('click', () => {
-    const scrollTarget = scrollButtonVisible ? document.documentElement.scrollHeight : 0;
+    const scrollTarget = scrollButtonVisible ? window.innerHeight : 0;
     window.scrollTo({
         top: scrollTarget,
         behavior: 'smooth'
