@@ -22,25 +22,37 @@ body {
 
 .header {
     background-color: #1c1c1e;
-    padding: 15px;
+    padding: 20px;
     display: flex;
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid #2c2c2e;
 }
 
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .contact-picture {
-    width: 40px;
-    height: 40px;
-    background-color: #007aff;
+    width: 60px;
+    height: 60px;
+    background-color: #a6a7a9;
     color: white;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    margin-bottom: 10px;
     user-select: none;
+}
+
+.contact-name {
+    font-size: 18px;
+    text-align: center;
 }
 
 .chat-box {
@@ -51,26 +63,33 @@ body {
     flex-direction: column;
     background-color: #000;
 }
-
 .message {
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 20px;
     margin: 5px 0;
     max-width: 70%;
+    position: relative;
     word-wrap: break-word;
 }
-
 .left {
     background-color: #3a3a3c;
     color: white;
     align-self: flex-start;
+    border-bottom-left-radius: 20px; /* Keep the rounded corner on bottom-left */
+    border-bottom-right-radius: 20px; /* Keep the rounded corner on bottom-right */
+    position: relative; /* For positioning the tail */
 }
+
 
 .right {
     background-color: #0a84ff;
     color: white;
     align-self: flex-end;
+    border-bottom-left-radius: 20px; /* Keep the rounded corner on bottom-left */
+    border-bottom-right-radius: 20px; /* Keep the rounded corner on bottom-right */
+    position: relative; /* For positioning the tail */
 }
+
 
 .controls {
     display: flex;
@@ -99,5 +118,23 @@ button {
 }
 
 button:hover {
+    background-color: #007aff;
+}
+
+.save-controls {
+    padding: 10px;
+    text-align: center;
+}
+
+.save-controls button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0a84ff;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.save-controls button:hover {
     background-color: #007aff;
 }

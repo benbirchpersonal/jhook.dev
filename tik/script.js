@@ -62,3 +62,25 @@ function updateContactPicture(name) {
     
     contactPictureElement.textContent = initials;
 }
+
+function saveAsImage() {
+    const element = document.querySelector('.imessage-container'); // Target the iMessage container
+    const controls = document.querySelector('.controls'); // Target controls section
+    const saveControls = document.querySelector('.save-controls'); // Target controls section
+
+    // Temporarily hide controls to exclude them from screenshot
+    controls.style.display = 'none';
+    saveControls.style.display = 'none';
+    html2canvas(element, { 
+        scale: 3, // Increase scale for better quality
+        useCORS: true // Enable cross-origin resource sharing for images
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');  // Convert canvas to image
+        link.download = 'iMessage_screenshot.png';  // Set the image file name
+        link.click();  // Trigger the download
+
+        // Restore controls after screenshot
+        controls.style.display = 'flex';
+    });
+}
