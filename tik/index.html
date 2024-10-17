@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iMessage Screenshot Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="imessage-container">
+        <div class="header">
+            <div id="contactName" class="contact-name" contenteditable="false" onclick="editName()">John Doe</div>
+        </div>
         <div id="chat" class="chat-box">
             <!-- Messages will appear here -->
         </div>

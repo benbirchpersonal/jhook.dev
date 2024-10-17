@@ -54,6 +54,23 @@ canvas {
     z-index: 1000;
 }
 
+/* Scroll Down Button Styles */
+#testbutton {
+    position: fixed;
+    bottom: 50px;
+    left: 75%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: fadeInOut 3s infinite;
+    z-index: 1000;
+}
+
+
+
 /* Scroll Up Button Styles */
 #scrollButtonUp {
     position: fixed;

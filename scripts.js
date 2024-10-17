@@ -132,3 +132,50 @@ document.getElementById('scrollButtonUp').addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+async function getTimetableData() {
+    const url = 'https://portal.lancaster.ac.uk/portal/api/calendars/timetable/2024-10-07?period=week&timezone=Europe%2FLondon';
+    
+    try {
+        // Make the GET request using fetch
+        const response = await fetch(url);
+        
+        // Check if the response is ok (status code 200-299)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the JSON data from the response
+        const data = await response.json();
+
+        // Return or process the data as needed
+        return data;
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching timetable data:', error);
+    }
+}
+
+document.getElementById('testbutton').addEventListener('click', () => {
+
+    fetch("https://portal.lancaster.ac.uk/portal/api/calendars/timetable/2024-10-07?period=week&timezone=Europe%2FLondon", {
+  "headers": {
+    "accept": "*/*",
+    "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+    "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkc3AiLCJpYXQiOjE3MjYwNzQ0MjMsImp0aSI6ImMxMDBjZTM1LWUwMmQtNDQwOS05ZTI4LWJhNTczYTZiNDJiYSIsInVzZXJuYW1lIjoiYmlyY2hiIiwiZXhwIjoxNzI2MDgxNjIzfQ.63HSIpqyJuqR_KNsyqRpKMBE8hMJPcimK6-uXtx5GpU",
+    "content-type": "application/json",
+    "sec-ch-ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "same-origin",
+    "sec-fetch-site": "same-site"
+  },
+  "referrer": "https://portal.lancaster.ac.uk/portal/my-area/timetable",
+  "referrerPolicy": "no-referrer",
+  "body": null,
+  "method": "GET",
+  "mode": "no-cors",
+  "credentials": "include"
+});
+});
