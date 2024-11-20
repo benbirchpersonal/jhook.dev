@@ -6,28 +6,10 @@ const rolePrompt = document.getElementById('rolePrompt');
 const connectionLink = document.getElementById('connectionLink');
 const qrCodeContainer = document.getElementById('qrCode');
 
-// Set up peer-to-peer connections
-const peers = new Map();
-let isBroadcaster = false;
-let broadcasterOffer = null;
-let viewerAnswer = null;
+let peerConnection = null;
+let dataChannel = null;
 
 const configuration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
-const peerConnection = new RTCPeerConnection(configuration);
-const dataChannel = peerConnection.createDataChannel('broadcast');
-
-// Listen for incoming messages
-dataChannel.onmessage = (event) => {
-  displayMessage(event.data);
-};
-
-// For viewers: listen for broadcasters
-peerConnection.ondatachannel = (event) => {
-  const receiveChannel = event.channel;
-  receiveChannel.onmessage = (event) => {
-    displayMessage(event.data);
-  };
-};
 
 // Display messages on the message board
 function displayMessage(message) {
@@ -39,19 +21,8 @@ function displayMessage(message) {
 // Broadcast a message
 function broadcastMessage(message) {
   displayMessage(`You: ${message}`);
-  peers.forEach((channel) => {
-    channel.send(message);
-  });
+  dataChannel.send(message);
 }
-
-// When send button is clicked
-sendButton.addEventListener('click', () => {
-  const message = messageInput.value.trim();
-  if (message) {
-    broadcastMessage(message);
-    messageInput.value = '';
-  }
-});
 
 // Generate and display the QR code
 function generateQRCode(data) {
@@ -78,19 +49,25 @@ function showViewerLink(answer) {
   rolePrompt.textContent = 'You are a viewer. Share this link or QR code with the broadcaster.';
 }
 
-// Networking setup for WebRTC signaling
+// Setup for broadcaster
 async function setupBroadcaster() {
-  isBroadcaster = true;
+  peerConnection = new RTCPeerConnection(configuration);
+  dataChannel = peerConnection.createDataChannel('broadcast');
+
+  dataChannel.onmessage = (event) => {
+    displayMessage(event.data);
+  };
 
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
-  broadcasterOffer = JSON.stringify(offer);
+  const offerString = JSON.stringify(offer);
 
-  showBroadcasterLink(broadcasterOffer);
+  showBroadcasterLink(offerString);
 }
 
+// Setup for viewer (answering the broadcaster's offer)
 async function setupViewer() {
-  isBroadcaster = false;
+  peerConnection = new RTCPeerConnection(configuration);
   const urlParams = new URLSearchParams(window.location.search);
   const broadcasterOffer = urlParams.get('offer');
   if (broadcasterOffer) {
@@ -98,11 +75,20 @@ async function setupViewer() {
 
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
-    viewerAnswer = JSON.stringify(answer);
+    const answerString = JSON.stringify(answer);
 
-    showViewerLink(viewerAnswer);
+    showViewerLink(answerString);
   }
 }
+
+// When the send button is clicked, send the message to everyone
+sendButton.addEventListener('click', () => {
+  const message = messageInput.value.trim();
+  if (message && dataChannel) {
+    broadcastMessage(message);
+    messageInput.value = '';
+  }
+});
 
 // Decide on the role (Broadcaster or Viewer)
 function chooseRole() {
