@@ -48,7 +48,7 @@ h1 {
 }
 
 .search-bar:focus {
-    border-color: #007bff;
+    background-color: #e17979;
     background-color: #333;
     outline: none;
 }
@@ -68,7 +68,7 @@ textarea {
 }
 
 textarea:focus {
-    border-color: #007bff;
+    background-color: #e17979;
     background-color: #333;
     outline: none;
 }
@@ -88,7 +88,7 @@ input[type="file"] {
 button {
     width: 100%;
     padding: 15px;
-    background-color: #007bff;
+    background-color: #e17979;
     color: white;
     border: none;
     border-radius: 8px;
@@ -98,7 +98,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #e17979;
 }
 
 /* Messages Styling */
@@ -125,7 +125,7 @@ button:hover {
 }
 
 .message a {
-    color: #007bff;
+    background-color: #e17979;
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
