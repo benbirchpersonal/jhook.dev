@@ -21,7 +21,7 @@ if (isset($_GET["id"])) {
 
     if ($stmt->fetch()) {
         header("Content-Disposition: attachment; filename=" . $fileName);
-        echo $fileData;
+        echo base64_decode($fileData); // Decode file data before sending
     }
 
     $stmt->close();
