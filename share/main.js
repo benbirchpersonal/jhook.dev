@@ -1,10 +1,16 @@
 const messageBoard = document.getElementById('messageBoard');
 const messageInput = document.getElementById('messageInput');
 const sendButton = document.getElementById('sendButton');
+const linkContainer = document.getElementById('linkContainer');
+const rolePrompt = document.getElementById('rolePrompt');
+const connectionLink = document.getElementById('connectionLink');
+const qrCodeContainer = document.getElementById('qrCode');
 
 // Set up peer-to-peer connections
 const peers = new Map();
 let isBroadcaster = false;
+let broadcasterOffer = null;
+let viewerAnswer = null;
 
 const configuration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
 const peerConnection = new RTCPeerConnection(configuration);
@@ -47,34 +53,65 @@ sendButton.addEventListener('click', () => {
   }
 });
 
+// Generate and display the QR code
+function generateQRCode(data) {
+  QRCode.toDataURL(data, (err, url) => {
+    if (err) {
+      console.error('Error generating QR code', err);
+    } else {
+      qrCodeContainer.innerHTML = `<img src="${url}" alt="QR Code">`;
+    }
+  });
+}
+
+// Show broadcaster's link and QR code
+function showBroadcasterLink(offer) {
+  connectionLink.innerHTML = `<a href="#">Share this link with viewers: ${window.location.href}?offer=${offer}</a>`;
+  generateQRCode(window.location.href + '?offer=' + offer);
+  rolePrompt.textContent = 'You are the broadcaster. Share this link or QR code with viewers.';
+}
+
+// Show viewer's link and QR code for answering the offer
+function showViewerLink(answer) {
+  connectionLink.innerHTML = `<a href="#">Share this link with broadcaster: ${window.location.href}?answer=${answer}</a>`;
+  generateQRCode(window.location.href + '?answer=' + answer);
+  rolePrompt.textContent = 'You are a viewer. Share this link or QR code with the broadcaster.';
+}
+
 // Networking setup for WebRTC signaling
 async function setupBroadcaster() {
   isBroadcaster = true;
 
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
+  broadcasterOffer = JSON.stringify(offer);
 
-  // Simulate signaling by sharing the offer directly
-  const viewerAnswer = JSON.parse(prompt('Paste viewer answer here:'));
-  await peerConnection.setRemoteDescription(new RTCSessionDescription(viewerAnswer));
+  showBroadcasterLink(broadcasterOffer);
 }
 
 async function setupViewer() {
   isBroadcaster = false;
+  const urlParams = new URLSearchParams(window.location.search);
+  const broadcasterOffer = urlParams.get('offer');
+  if (broadcasterOffer) {
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(broadcasterOffer)));
 
-  const broadcasterOffer = JSON.parse(prompt('Paste broadcaster offer here:'));
-  await peerConnection.setRemoteDescription(new RTCSessionDescription(broadcasterOffer));
+    const answer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(answer);
+    viewerAnswer = JSON.stringify(answer);
 
-  const answer = await peerConnection.createAnswer();
-  await peerConnection.setLocalDescription(answer);
-
-  // Simulate signaling by sharing the answer directly
-  alert('Copy this and send to the broadcaster: ' + JSON.stringify(answer));
+    showViewerLink(viewerAnswer);
+  }
 }
 
-// Choose mode
-if (confirm('Are you the broadcaster?')) {
-  setupBroadcaster();
-} else {
-  setupViewer();
+// Decide on the role (Broadcaster or Viewer)
+function chooseRole() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('offer')) {
+    setupViewer();
+  } else {
+    setupBroadcaster();
+  }
 }
+
+chooseRole();
