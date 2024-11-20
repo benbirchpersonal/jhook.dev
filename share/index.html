@@ -1,16 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JHDrop</title>
+    
+    <title>Message Board</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #00bcd4;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0288d1;
+        }
+
+        .message {
+            background-color: #2c2c2c;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .message pre {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #d4d4d4;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .message a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .message a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>JHDrop</h1>
-        <input type="text" id="searchInput" placeholder="Search messages..." class="search-bar">
+        <h1>Message Board</h1>
         <form id="messageForm" enctype="multipart/form-data">
             <textarea id="messageInput" name="message" placeholder="Enter your message"></textarea>
             <input type="file" id="fileInput" name="file">

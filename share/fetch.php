@@ -11,13 +11,21 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch messages including the timestamp
+// Fetch messages
 $sql = "SELECT id, message, file_name, created_at FROM messages ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
 $messages = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Decode the message from Base64
+        $row['message'] = base64_decode($row['message']);
+        
+        // Decode file content if it's Base64 encoded
+        if ($row['file_name']) {
+            $row['file_data'] = base64_decode($row['file_data']);
+        }
+
         $messages[] = $row;
     }
 }
