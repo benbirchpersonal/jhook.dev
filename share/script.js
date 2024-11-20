@@ -23,7 +23,7 @@ function fetchMessages() {
         .then(response => response.json())
         .then(data => {
             const messagesDiv = document.getElementById("messages");
-            messagesDiv.innerHTML = "";
+            messagesDiv.innerHTML = ""; // Clear previous messages
 
             if (data.success) {
                 data.messages.forEach(msg => {
