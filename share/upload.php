@@ -23,16 +23,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Insert into database
-    $stmt = $conn->prepare("INSERT INTO messages (message, file_name, file_data) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $message, $fileName, $fileData);
+    if ($message || $fileData) {
+        $stmt = $conn->prepare("INSERT INTO messages (message, file_name, file_data) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $message, $fileName, $fileData);
 
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Message uploaded successfully."]);
+        if ($stmt->execute()) {
+            echo json_encode(["success" => true, "message" => "Message uploaded successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Failed to upload message."]);
+        }
+
+        $stmt->close();
     } else {
-        echo json_encode(["success" => false, "message" => "Failed to upload message."]);
+        echo json_encode(["success" => false, "message" => "Message and file cannot both be empty."]);
     }
-
-    $stmt->close();
 }
 
 $conn->close();
