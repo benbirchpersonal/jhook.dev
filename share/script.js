@@ -1,5 +1,5 @@
 // Add Fuse.js library for fuzzy search
-import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.4.6';
+//import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.4.6';
 
 document.getElementById("messageForm").addEventListener("submit", function (e) {
     e.preventDefault();
