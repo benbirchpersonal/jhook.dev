@@ -1,60 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Broadcast Messages</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px;
-    }
-    #messageBoard {
-      width: 80%;
-      height: 300px;
-      border: 1px solid #ccc;
-      margin-bottom: 20px;
-      overflow-y: auto;
-      padding: 10px;
-    }
-    #messageBoard div {
-      padding: 5px;
-      border-bottom: 1px solid #eee;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px;
-      font-size: 16px;
-    }
-    .link-container {
-      margin: 20px;
-      text-align: center;
-    }
-    .link-container a {
-      color: blue;
-      text-decoration: underline;
-    }
-    #qrCode {
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Board</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #messages { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
+        input, button, textarea { display: block; margin: 10px 0; padding: 10px; font-size: 16px; width: 100%; }
+    </style>
 </head>
 <body>
-  <h1>Broadcast Messaging</h1>
-  <div id="messageBoard"></div>
-  <input id="messageInput" type="text" placeholder="Type your message">
-  <button id="sendButton">Broadcast</button>
+    <h1>Message Board</h1>
+    <div id="messages"></div>
+    <form id="messageForm">
+        <input type="text" id="username" placeholder="Your name" required />
+        <textarea id="message" placeholder="Your message" rows="4" required></textarea>
+        <button type="submit">Post Message</button>
+    </form>
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const form = document.getElementById('messageForm');
 
-  <div class="link-container" id="linkContainer">
-    <p id="rolePrompt"></p>
-    <p id="connectionLink"></p>
-    <div id="qrCode"></div>
-  </div>
+        async function loadMessages() {
+            const response = await fetch('/api.php');
+            const messages = await response.json();
+            messagesDiv.innerHTML = messages.map(msg => 
+                `<div><strong>${msg.username}</strong>: ${msg.message}<br><small>${msg.timestamp}</small></div>`
+            ).join('');
+        }
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
-  <script src="main.js"></script>
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const message = document.getElementById('message').value;
+
+            const response = await fetch('/api.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, message }),
+            });
+
+            if (response.ok) {
+                document.getElementById('message').value = '';
+                loadMessages();
+            } else {
+                alert('Failed to post message');
+            }
+        });
+
+        loadMessages();
+    </script>
 </body>
 </html>
