@@ -3,54 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message Board</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        #messages { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
-        input, button, textarea { display: block; margin: 10px 0; padding: 10px; font-size: 16px; width: 100%; }
-    </style>
+    <title>Message Board with File Upload</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Message Board</h1>
-    <div id="messages"></div>
-    <form id="messageForm">
-        <input type="text" id="username" placeholder="Your name" required />
-        <textarea id="message" placeholder="Your message" rows="4" required></textarea>
-        <button type="submit">Post Message</button>
-    </form>
-    <script>
-        const messagesDiv = document.getElementById('messages');
-        const form = document.getElementById('messageForm');
+    <header>
+        <div class="navbar">
+            <a href="/" class="logo">Jhook</a>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        async function loadMessages() {
-            const response = await fetch('/api.php');
-            const messages = await response.json();
-            messagesDiv.innerHTML = messages.map(msg => 
-                `<div><strong>${msg.username}</strong>: ${msg.message}<br><small>${msg.timestamp}</small></div>`
-            ).join('');
-        }
+    <main>
+        <div class="message-board-container">
+            <h1>Message Board</h1>
+            <div class="message-container">
+                <!-- Messages and files will be displayed here -->
+            </div>
+            <textarea id="messageInput" placeholder="Type your message..." class="input-box"></textarea>
+            <div class="file-upload">
+                <label for="fileInput">Attach a file:</label>
+                <input type="file" id="fileInput">
+            </div>
+            <button id="sendButton" class="btn">Send</button>
+        </div>
+    </main>
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const message = document.getElementById('message').value;
+    <footer>
+        <p>© 2024 Jhook. All rights reserved.</p>
+    </footer>
 
-            const response = await fetch('/api.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, message }),
-            });
-
-            if (response.ok) {
-                document.getElementById('message').value = '';
-                loadMessages();
-            } else {
-                alert('Failed to post message');
-            }
-        });
-
-        loadMessages();
-    </script>
+    <script src="messageboard.js"></script>
 </body>
 </html>
