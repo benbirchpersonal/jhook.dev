@@ -5,8 +5,6 @@ $user = "board_user";
 $password = "secure_password";
 $database = "message_board";
 
-
-
 $conn = new mysqli($host, $user, $password, $database);
 
 if ($conn->connect_error) {
