@@ -3,40 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message Board with File Upload</title>
+    <title>Message Board</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="navbar">
-            <a href="/" class="logo">Jhook</a>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <div class="message-board-container">
-            <div class="message-container">
-                <!-- Messages and files will be displayed here -->
-            </div>
-            <textarea id="messageInput" placeholder="Type your message..." class="input-box"></textarea>
-            <div class="file-upload">
-                <label for="fileInput">Attach a file:</label>
-                <input type="file" id="fileInput">
-            </div>
-            <button id="sendButton" class="btn">Send</button>
-        </div>
-    </main>
-
-    <footer>
-        <p>© 2024 Jhook. All rights reserved.</p>
-    </footer>
-
-    <script src="fileUpload.js"></script>
+    <div class="container">
+        <h1>Message Board</h1>
+        <form id="messageForm" enctype="multipart/form-data">
+            <textarea id="messageInput" name="message" placeholder="Enter your message"></textarea>
+            <input type="file" id="fileInput" name="file">
+            <button type="submit">Send</button>
+        </form>
+        <div id="messages"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
