@@ -42,6 +42,11 @@ function fetchMessages() {
                     const messageElement = document.createElement("div");
                     messageElement.classList.add("message");
 
+                    // Check if the message was sent by the user (right aligned) or the recipient (left aligned)
+                    const isUserMessage = msg.is_user || false; // Add a check here for user messages
+
+                    messageElement.classList.add(isUserMessage ? "right" : "left");
+
                     const textElement = document.createElement("p");
                     textElement.textContent = msg.message;
                     messageElement.appendChild(textElement);
