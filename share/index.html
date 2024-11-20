@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broadcast Messages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    #messageBoard {
+      width: 80%;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    #messageBoard div {
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Broadcast Messaging</h1>
+  <div id="messageBoard"></div>
+  <input id="messageInput" type="text" placeholder="Type your message">
+  <button id="sendButton">Broadcast</button>
+
+  <script src="main.js"></script>
+</body>
+</html>
