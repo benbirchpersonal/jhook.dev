@@ -29,6 +29,17 @@
       margin: 5px;
       font-size: 16px;
     }
+    .link-container {
+      margin: 20px;
+      text-align: center;
+    }
+    .link-container a {
+      color: blue;
+      text-decoration: underline;
+    }
+    #qrCode {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -37,6 +48,13 @@
   <input id="messageInput" type="text" placeholder="Type your message">
   <button id="sendButton">Broadcast</button>
 
+  <div class="link-container" id="linkContainer">
+    <p id="rolePrompt"></p>
+    <p id="connectionLink"></p>
+    <div id="qrCode"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
   <script src="main.js"></script>
 </body>
 </html>
