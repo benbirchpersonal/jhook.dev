@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JHDrop</title>
@@ -9,12 +10,13 @@
 <body>
     <div class="container">
         <h1>JHDrop</h1>
+        <input type="text" id="searchInput" placeholder="Search messages..." class="search-bar">
         <form id="messageForm" enctype="multipart/form-data">
             <textarea id="messageInput" name="message" placeholder="Enter your message"></textarea>
             <input type="file" id="fileInput" name="file">
             <button type="submit">Send</button>
         </form>
-        <div id="messages" class="messages"></div>
+        <div id="messages"></div>
     </div>
     <script src="script.js"></script>
 </body>
