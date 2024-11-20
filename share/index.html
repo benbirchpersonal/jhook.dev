@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JHDrop</title>
@@ -10,8 +9,9 @@
 <body>
     <div class="container">
         <h1>JHDrop</h1>
+        <input type="text" id="searchInput" placeholder="Search messages..." class="search-bar">
         <form id="messageForm" enctype="multipart/form-data">
-            <textarea id="messageInput" name="message" placeholder="Enter your message" required></textarea>
+            <textarea id="messageInput" name="message" placeholder="Enter your message"></textarea>
             <input type="file" id="fileInput" name="file">
             <button type="submit">Send</button>
         </form>
