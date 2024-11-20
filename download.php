@@ -1,9 +1,9 @@
 <?php
 // Database connection
-$host = "your_sql_host";
-$user = "your_sql_user";
-$password = "your_sql_password";
-$database = "your_sql_database";
+$host = "localhost";
+$user = "board_user";
+$password = "secure_password";
+$database = "message_board";
 
 $conn = new mysqli($host, $user, $password, $database);
 
