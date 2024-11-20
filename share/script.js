@@ -33,8 +33,7 @@ function fetchMessages() {
                     const textElement = document.createElement("p");
                     textElement.textContent = msg.message;
                     messageElement.appendChild(textElement);
-
-                    if (msg.file_name) {
+                    if (msg.id && msg.file_name) {
                         const fileLink = document.createElement("a");
                         fileLink.href = `download.php?id=${msg.id}`;
                         fileLink.textContent = `Download ${msg.file_name}`;
