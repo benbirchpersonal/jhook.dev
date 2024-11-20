@@ -35,25 +35,39 @@ function fetchMessages() {
         .then(response => response.json())
         .then(data => {
             const messagesDiv = document.getElementById("messages");
-            messagesDiv.innerHTML = ""; // Clear previous messages
+            messagesDiv.innerHTML = "";
 
             if (data.success) {
-                // Store the messages and create a Fuse.js instance for fuzzy searching
-                const messages = data.messages;
-                const fuse = new Fuse(messages, {
-                    keys: ['message', 'file_name'], // Fields to search
-                    threshold: 0.4 // Adjust threshold for fuzzy search sensitivity
-                });
+                data.messages.forEach(msg => {
+                    const messageElement = document.createElement("div");
+                    messageElement.classList.add("message");
 
-                // Render all messages
-                messages.forEach(msg => {
-                    const messageElement = createMessageElement(msg);
+                    const textElement = document.createElement("p");
+                    textElement.textContent = msg.message;
+                    messageElement.appendChild(textElement);
+
+                    if (msg.file_name) {
+                        const fileLink = document.createElement("a");
+                        fileLink.href = `download.php?id=${msg.id}`;
+                        fileLink.textContent = `Download ${msg.file_name}`;
+                        fileLink.target = "_blank";
+                        messageElement.appendChild(fileLink);
+                    }
+
+                    // Display the message timestamp
+                    const timestampElement = document.createElement("p");
+                    timestampElement.classList.add("timestamp");
+                    const timestamp = new Date(msg.created_at); // Convert to Date object
+                    timestampElement.textContent = timestamp.toLocaleString(); // Format as local date/time
+                    messageElement.appendChild(timestampElement);
+
                     messagesDiv.appendChild(messageElement);
                 });
             }
         })
         .catch(err => console.error("Error fetching messages:", err));
 }
+
 
 function filterMessages(query) {
     fetch("fetch.php")

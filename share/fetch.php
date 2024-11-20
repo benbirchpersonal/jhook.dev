@@ -11,13 +11,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all messages
-$sql = "SELECT id, message, file_name FROM messages";
+// Fetch messages including the timestamp
+$sql = "SELECT id, message, file_name, created_at FROM messages ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
 $messages = [];
-while ($row = $result->fetch_assoc()) {
-    $messages[] = $row;
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $messages[] = $row;
+    }
 }
 
 echo json_encode(["success" => true, "messages" => $messages]);

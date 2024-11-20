@@ -170,3 +170,11 @@ button:hover {
         opacity: 1;
     }
 }
+
+
+/* Style the timestamp */
+.timestamp {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 5px;
+}
