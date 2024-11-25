@@ -13,7 +13,7 @@ function updateCart() {
 }
 
 addToCartButton.addEventListener('click', () => {
-    cart.push({ name: 'Product Name', price: 19.99 });
+    cart.push({ name: 'Product Name', price: 0.01 });
     updateCart();
 });
 
