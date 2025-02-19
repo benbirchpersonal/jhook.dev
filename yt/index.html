@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube to MP3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>YouTube to MP3 Converter</h2>
+        <input type="text" id="url" placeholder="Paste YouTube URL here">
+        <button id="convert">Convert</button>
+        <p id="status"></p>
+        <a id="download" style="display: none;" download>Download MP3</a>
+    </div>
+
+    <script>
+        document.getElementById("convert").addEventListener("click", function() {
+            let url = document.getElementById("url").value;
+            if (!url) {
+                alert("Please enter a YouTube URL.");
+                return;
+            }
+
+            document.getElementById("status").innerText = "Processing...";
+            document.getElementById("download").style.display = "none";
+
+            fetch("process.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "url=" + encodeURIComponent(url),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    document.getElementById("status").innerText = "Conversion complete!";
+                    let downloadLink = document.getElementById("download");
+                    downloadLink.href = "../backend/" + data.file;
+                    downloadLink.innerText = "Download MP3";
+                    downloadLink.style.display = "block";
+                } else {
+                    document.getElementById("status").innerText = "Error: " + data.message;
+                }
+            })
+            .catch(error => {
+                document.getElementById("status").innerText = "Error occurred.";
+            });
+        });
+    </script>
+</body>
+</html>
