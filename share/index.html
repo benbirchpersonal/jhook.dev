@@ -1,107 +1,65 @@
+<?php
+// Database connection
+$host = "localhost";
+$user = "board_user";
+$password = "secure_password";
+$database = "message_board";
+
+$conn = new mysqli($host, $user, $password, $database);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch the latest public messages
+$sql = "SELECT m.id, m.message, m.file_name, m.created_at, u.username 
+        FROM messages m 
+        JOIN users u ON m.user_id = u.id 
+        WHERE m.is_private = 0 
+        ORDER BY m.created_at DESC LIMIT 10";
+$result = $conn->query($sql);
+
+$messages = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $messages[] = $row;
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Jdp</title>
+    <title>Message Board - Latest Public Messages</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #1f1f1f;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        h1 {
-            color: #e17979;
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #fff;
-            font-size: 16px;
-        }
-
-        input[type="file"] {
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #fff;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #00bcd4;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0288d1;
-        }
-
-        .message {
-            background-color: #2c2c2c;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-
-        .message pre {
-            background-color: #333;
-            padding: 15px;
-            border-radius: 4px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            color: #d4d4d4;
-            font-family: "Courier New", Courier, monospace;
-        }
-
-        .message a {
-            color: #00bcd4;
-            text-decoration: none;
-        }
-
-        .message a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Jdp</h1>
-        <form id="messageForm" enctype="multipart/form-data">
-            <textarea id="messageInput" name="message" placeholder="Enter your message"></textarea>
-            <input type="file" id="fileInput" name="file">
-            <button type="submit">Send</button>
+        <h1>Latest Public Messages</h1>
+        
+        <div id="messages">
+            <?php foreach ($messages as $message): ?>
+                <div class="message">
+                    <h3><?php echo htmlspecialchars($message['username']); ?></h3>
+                    <p><?php echo nl2br(htmlspecialchars($message['message'])); ?></p>
+                    <?php if ($message['file_name']): ?>
+                        <a href="download.php?id=<?php echo $message['id']; ?>">Download <?php echo htmlspecialchars($message['file_name']); ?></a>
+                    <?php endif; ?>
+                    <p><small><?php echo date('Y-m-d H:i:s', strtotime($message['created_at'])); ?></small></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <form action="search.php" method="GET">
+            <input type="text" name="query" placeholder="Search for users..." required>
+            <button type="submit">Search</button>
         </form>
-        <div id="messages"></div>
+        
+        <a href="login.html">Login</a> | <a href="register.html">Register</a>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
