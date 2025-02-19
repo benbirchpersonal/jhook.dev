@@ -3,7 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $url = escapeshellarg($_POST["url"]); // Sanitize input
 
     // Use the Python interpreter from your virtual environment
-    $pythonEnv = "/env/bin/python3";  // Change this to your actual path
+    $pythonEnv = "env/bin/python3";  // Change this to your actual path
     $command = "$pythonEnv convert.py " . $url . " 2>&1";
 
     $output = shell_exec($command);
