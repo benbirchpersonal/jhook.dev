@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // Database connection
 $host = "localhost";
-$user = "board_user";
+$user = "jdp";
 $password = "JDP_p100_PWD!";
 $database = "message_board";
 
