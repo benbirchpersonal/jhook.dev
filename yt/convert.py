@@ -1,7 +1,6 @@
 import os
 import sys
 import yt_dlp
-import subprocess
 
 if len(sys.argv) < 2:
     print("Error: No URL provided")
@@ -13,9 +12,9 @@ url = sys.argv[1]
 ydl_opts = {
     'format': 'bestaudio/best',  # Best audio format
     'postprocessors': [{
-        'key': 'FFmpegAudioConvertor',  # Convert to mp3
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
+        'key': 'FFmpegAudioConvertor',  # Convert to mp3 using FFmpeg
+        'preferredcodec': 'mp3',        # Specify the desired codec
+        'preferredquality': '192',      # Quality setting
     }],
     'outtmpl': 'downloads/%(id)s.%(ext)s',  # Save location
     'headers': {
