@@ -2,7 +2,7 @@
 // Database connection
 $host = "localhost";
 $user = "board_user";
-$password = "secure_password";
+$password = "JDP_p100_PWD!";
 $database = "message_board";
 
 $conn = new mysqli($host, $user, $password, $database);
