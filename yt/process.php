@@ -12,4 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(["status" => "error", "message" => $output]);
     }
 }
+
+else{
+    echo shell_exec("python3 --version 2>&1");
+}
 ?>
