@@ -2,10 +2,25 @@ import os
 import sys
 from pytube import YouTube
 import subprocess
+import requests
 
 if len(sys.argv) < 2:
     print("Error: No URL provided")
     sys.exit(1)
+
+
+headers = {
+'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+}
+
+# Override the default requests session used by pytube
+session = requests.Session()
+session.headers.update(headers)
+
+# Replace the default requests session in pytube
+YouTube.requests = session
+
+url = sys.argv[1]
 
 url = sys.argv[1]
 
