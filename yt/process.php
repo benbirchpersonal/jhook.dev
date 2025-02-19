@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $url = escapeshellarg($_POST["url"]); // Sanitize user input
-    $command = "python3 ../backend/convert.py " . $url . " 2>&1";
+    $command = "python3 convert.py " . $url . " 2>&1";
     
     $output = shell_exec($command);
     
