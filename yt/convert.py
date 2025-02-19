@@ -11,7 +11,7 @@ url = sys.argv[1]
 
 try:
     # Download the video
-    yt = YouTube(url)
+    yt = YouTube(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"})
     stream = yt.streams.filter(only_audio=True).first()
     filename = stream.download(filename="temp_video.mp4")
 
