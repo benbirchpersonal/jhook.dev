@@ -1,28 +1,30 @@
 import os
-import argparse
+import sys
 from pytube import YouTube
-from moviepy.editor import VideoFileClip
+import subprocess
 
-# Set up argument parser
-parser = argparse.ArgumentParser(description="Download a YouTube video and extract audio as MP3.")
-parser.add_argument("url", help="YouTube video URL")
-args = parser.parse_args()
+if len(sys.argv) < 2:
+    print("Error: No URL provided")
+    sys.exit(1)
 
-# Download the video
-yt = YouTube(args.url)
-stream = yt.streams.get_highest_resolution()
-filename = stream.default_filename
-stream.download()
+url = sys.argv[1]
 
-# Extract the audio
-video = VideoFileClip(filename)
-audio = video.audio
-audio_filename = filename.replace('.mp4', '.mp3')
-audio.write_audiofile(audio_filename)
+try:
+    # Download the video
+    yt = YouTube(url)
+    stream = yt.streams.filter(only_audio=True).first()
+    filename = stream.download(filename="temp_video.mp4")
 
-# Delete the downloaded video file
-video.close()
-audio.close()
-os.remove(filename)
+    # Extract audio using ffmpeg
+    audio_filename = filename.replace('.mp4', '.mp3')
+    command = f"ffmpeg -i {filename} -q:a 0 -map a {audio_filename}"
+    subprocess.run(command, shell=True, check=True)
 
-print(f"Audio saved as {audio_filename}")
+    # Remove the temporary video file
+    os.remove(filename)
+
+    print(audio_filename)
+
+except Exception as e:
+    print(f"Error: {str(e)}")
+    sys.exit(1)
