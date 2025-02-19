@@ -1,5 +1,10 @@
 <?php
 // Database connection
+
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $host = "localhost";
 $user = "board_user";
 $password = "JDP_p100_PWD!";
